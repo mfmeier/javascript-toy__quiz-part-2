@@ -15,7 +15,7 @@ var questionResult = document.getElementById('questionResult');
 
 
 
-  click_it.addEventListener("click", function() {
+  // click_it.addEventListener("click", function() {
     click_it.style.display = "none";
     quiz.style.display = "block";
     submitter.style.display = "block";
@@ -29,15 +29,17 @@ var questionResult = document.getElementById('questionResult');
     var choiceBack = new XMLHttpRequest();
     choiceBack.open("get", "http://localhost:9292/choices/"+params);
     choiceBack.addEventListener("load", function(event){
-      function choose (){
-        var whichOne = document.getElementsByName("choices");
-        var sample = whichOne.length
-        for (i=0;i<sample;i++){
-          if (whichOne[i].checked){
-            whichOne[i].value = choices
-          }
-        }
-      }
+      var radios = document.getElementsById('r');
+        for (var i = 0, length = responseText.length; i < length; i++) {
+        if (radios[i].checked) {
+        radios[i] = question.innerHTML;
+        
+
+        // only one value can be checked
+        break;
+    }
+}
+
     choices.innerHTML = choiceBack.responseText;
     });
 
@@ -52,7 +54,7 @@ var questionResult = document.getElementById('questionResult');
     choiceBack.send();
     answerBack.send();
 
-  });
+  // });
 
   submitter.addEventListener("click", function() {
     submitter.style.display = "none";
@@ -115,7 +117,7 @@ var questionResult = document.getElementById('questionResult');
     correct.innerHTML = answerBack.responseText;
     });
 
-    result.innerHTML = "You earned " + score + " points.";
+    total.innerHTML = "You earned " + score + " points.";
 
     questionBack.send();
     choiceBack.send();
